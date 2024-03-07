@@ -1,7 +1,6 @@
 package com.jersson.arrivasplata.swtvap.api.web.expose.controllers;
 import java.util.ArrayList;
 
-import org.hibernate.mapping.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
