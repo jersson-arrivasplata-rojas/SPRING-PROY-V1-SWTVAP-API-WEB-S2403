@@ -12,4 +12,5 @@ public interface ParameterMapper {
     ParameterMapper INSTANCE = Mappers.getMapper(ParameterMapper.class);
 
     ParameterResponse toParameterResponse(Parameter parameter);
+
 }

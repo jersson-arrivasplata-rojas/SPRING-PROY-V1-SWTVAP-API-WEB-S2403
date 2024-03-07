@@ -1,12 +1,20 @@
 package com.jersson.arrivasplata.swtvap.api.web.expose.controllers;
-import com.jersson.arrivasplata.swtvap.api.web.mapper.ParameterMapper;
-import com.jersson.arrivasplata.swtvap.api.web.model.Parameter;
-import com.jersson.arrivasplata.swtvap.api.web.model.ParameterResponse;
+import java.util.ArrayList;
+
+import org.hibernate.mapping.List;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.jersson.arrivasplata.swtvap.api.web.business.service.ParameterService;
 import com.jersson.arrivasplata.swtvap.api.web.expose.ParameterController;
+import com.jersson.arrivasplata.swtvap.api.web.mapper.ParameterMapper;
+import com.jersson.arrivasplata.swtvap.api.web.model.ParameterResponse;
+
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 
@@ -22,10 +30,13 @@ public class ParameterControllerImpl implements ParameterController {
         this.parameterMapper = parameterMapper;
     }
 
-    @GetMapping("/code/{code}")
+    @GetMapping("/code/{codes}")
     @ResponseStatus(HttpStatus.OK)
-    public Mono<ParameterResponse> getStructureByCode(@PathVariable String code) {
-        return Mono.just(parameterService.getStructureByCode(code))
-                .map(parameterMapper::toParameterResponse);
+    public Flux<ParameterResponse> getStructureByCode(@PathVariable String codes) {
+        String[] codesArray = codes.split(",");
+        return Flux.fromArray(codesArray)
+                .flatMap(code -> Mono.just(parameterService.getStructureByCode(code))
+                        .map(data -> parameterMapper.toParameterResponse(data))
+                );
     }
 }
