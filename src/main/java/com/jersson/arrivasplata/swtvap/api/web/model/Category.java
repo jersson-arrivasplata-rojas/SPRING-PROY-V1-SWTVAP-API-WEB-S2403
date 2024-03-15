@@ -29,10 +29,10 @@ public class Category {
     private String description;
 
     @Column(length = 50)
-    private String name_en;
+    private String nameEn;
 
     @Column(columnDefinition = "text")
-    private String description_en;
+    private String descriptionEn;
 
     @Enumerated(EnumType.ORDINAL)
     private Status status;

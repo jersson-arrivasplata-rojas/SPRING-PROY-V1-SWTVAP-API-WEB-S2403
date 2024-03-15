@@ -2,6 +2,7 @@ package com.jersson.arrivasplata.swtvap.api.web.business.implementation;
 
 import com.jersson.arrivasplata.swtvap.api.web.business.service.ParameterService;
 import com.jersson.arrivasplata.swtvap.api.web.business.service.ProductService;
+import com.jersson.arrivasplata.swtvap.api.web.enums.Lang;
 import com.jersson.arrivasplata.swtvap.api.web.enums.Status;
 import com.jersson.arrivasplata.swtvap.api.web.exception.CustomException;
 import com.jersson.arrivasplata.swtvap.api.web.model.*;
@@ -33,16 +34,23 @@ public class ProductServiceImpl implements ProductService {
         return Flux.fromIterable(productRepository.findAll());
     }
 
-    public Mono<Product> getProductByName(String name) {
-        return Mono.just(productRepository.findByNameAndStatusAndDeletedAtIsNull(name, Status.ACTIVE))
+    public Mono<Product> getProductByName(String name, String lang) {
+        Product product = new Product();
+        if(Lang.valueOf(lang) == Lang.ES){
+            product = productRepository.findByNameAndStatusAndDeletedAtIsNull(name, Status.ACTIVE);
+        }else if(Lang.valueOf(lang) == Lang.EN){
+            product = productRepository.findByNameEnAndStatusAndDeletedAtIsNull(name, Status.ACTIVE);
+        }
+
+        return Mono.just(product)
                 .flatMap(response -> {
                     if (response == null) {
                         return Mono.error(new CustomException("Product not found with name: " + name));
                     }
 
-                    Product product = Common.builder().build().filterProduct(response);
+                    Product productFilter = Common.builder().build().filterProduct(response);
 
-                    return Mono.just(product);
+                    return Mono.just(productFilter);
                 });
     }
 }

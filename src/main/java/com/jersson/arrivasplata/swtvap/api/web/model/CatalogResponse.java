@@ -15,8 +15,8 @@ public class CatalogResponse {
     private String code;
     private String name;
     private String description;
-    private String name_en;
-    private String description_en;
+    private String nameEn;
+    private String descriptionEn;
     private ArrayList<Category> categories;
     private ArrayList<Product> products;
 }

@@ -8,5 +8,5 @@ public interface ProductController {
 
     Flux<ProductResponse> getAllProducts();
 
-    Mono<ProductResponse> getProductByName(String name);
+    Mono<ProductResponse> getProductByName(String name, String lang);
 }

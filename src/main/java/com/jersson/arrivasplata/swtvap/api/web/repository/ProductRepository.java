@@ -11,4 +11,6 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     //@Query("SELECT p FROM Product p JOIN FETCH p.productImages JOIN FETCH p.units WHERE p.name = :name AND p.status = :status AND p.deletedAt IS NULL")
     Product findByNameAndStatusAndDeletedAtIsNull(String name, Status status);
 
+    Product findByNameEnAndStatusAndDeletedAtIsNull(String nameEn, Status status);
+
 }

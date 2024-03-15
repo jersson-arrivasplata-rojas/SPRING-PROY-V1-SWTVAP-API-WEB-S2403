@@ -32,11 +32,10 @@ public class ProductControllerImpl implements ProductController {
                 });
     }
 
-    @GetMapping("/name/{name}")
+    @GetMapping("/name/{name}/lang/{lang}")
     @ResponseStatus(HttpStatus.OK)
-    public Mono<ProductResponse> getProductByName(@PathVariable String name) {
-        return Mono.just(name)
-                .flatMap(productService::getProductByName)
+    public Mono<ProductResponse> getProductByName(@PathVariable String name, @PathVariable String lang) {
+        return productService.getProductByName(name, lang.toUpperCase())
                 .map(product -> {
                     ProductResponse productResponse = productMapper.productToProductResponse(product);
                     return productResponse;

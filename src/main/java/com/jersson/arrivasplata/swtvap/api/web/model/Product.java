@@ -41,10 +41,10 @@ public class Product {
     private String description;
 
     @Column(name = "name_en", length = 200)
-    private String name_en;
+    private String nameEn;
 
     @Column(columnDefinition = "TEXT")
-    private String description_en;
+    private String descriptionEn;
 
     @Column(name = "price", precision = 50, scale = 10)
     private BigDecimal price;
@@ -65,7 +65,7 @@ public class Product {
     private String otherDetails;
 
     @Column(columnDefinition = "TEXT")
-    private String otherDetails_en;
+    private String otherDetailsEn;
 
     @Enumerated(EnumType.ORDINAL)
     private Status status;

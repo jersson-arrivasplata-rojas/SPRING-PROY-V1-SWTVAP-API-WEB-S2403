@@ -7,5 +7,5 @@ import reactor.core.publisher.Mono;
 
 public interface ProductService {
     Flux<Product> getAllProducts();
-    Mono<Product> getProductByName(String name);
+    Mono<Product> getProductByName(String name, String lang);
 }
